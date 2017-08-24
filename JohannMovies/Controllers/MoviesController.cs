@@ -15,7 +15,20 @@ namespace JohannMovies.Controllers
             var Movie = new Movie(){
                 Name = "Shrek!"
             };
-            return View(Movie);
+
+            //return View(Movie);
+
+            /* Playing with Action Results */
+            //return Content("Random Method!");
+            //return HttpNotFound();
+            //return new EmptyResult();
+            //return RedirectToAction("Index", "Home");
+            //return Json(Movie, JsonRequestBehavior.AllowGet);
+            //return Redirect(@"~\Util\WebFormTest.aspx");
+            //return PartialView(@"~\Views\Movies\Random.cshtml", Movie);
+            return File(new System.IO.StreamReader(Server.MapPath("~/Util/Download.docx")).BaseStream, "application/ms-word", "DwnFile.docx");
+
+
         }
     }
 }
