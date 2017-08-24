@@ -45,5 +45,12 @@ namespace JohannMovies.Controllers
 
             return Content("PageIndex=" + PageIndex + "&SortBy=" + SortBy);
         }
+
+        public ActionResult ByReleaseDate(int? year, int? month)
+        {
+            return Content(String.Format("{0}/{1}", year, month));
+        }
     }
+
+    
 }
