@@ -10,6 +10,47 @@ namespace JohannMovies.Controllers
 {
     public class MoviesController : Controller
     {
+
+        // GET: Movies
+        // GET: Movies/Index/{PageIndex}/{SortBy}
+        public ActionResult Index(int? PageIndex, string SortBy)
+        {
+
+            if (!PageIndex.HasValue)
+                PageIndex = 1;
+            if (String.IsNullOrWhiteSpace(SortBy))
+                SortBy = "Name";
+
+            var movies = Movie.GetAllMovies();
+
+            var modelView = new IndexMoviesViewModel
+            {
+                Movies = movies
+            };
+
+            return View(modelView);
+        }
+
+        // GET: Movies/Details/1
+        public ActionResult Details(int Id)
+        {
+
+           var objMovie = Movie.GetAllMovies().Where(m => m.Id == Id).SingleOrDefault();
+
+            if (objMovie == null)
+            {
+                return HttpNotFound();
+            }
+
+            var modelView = new DetailsMovieViewModel
+            {
+                Movie = objMovie
+            };
+
+            return View(modelView);
+        }
+
+
         // GET: Movies/Random
         public ActionResult Random()
         {
@@ -49,15 +90,7 @@ namespace JohannMovies.Controllers
 
         }
 
-        public ActionResult Index(int? PageIndex, string SortBy) {
 
-            if (!PageIndex.HasValue)
-                PageIndex = 1;
-            if (String.IsNullOrWhiteSpace(SortBy))
-                SortBy = "Name";
-
-            return Content("PageIndex=" + PageIndex + "&SortBy=" + SortBy);
-        }
 
         /*
         Good docs about attribute routing: https://blogs.msdn.microsoft.com/webdev/2013/10/17/attribute-routing-in-asp-net-mvc-5/ 

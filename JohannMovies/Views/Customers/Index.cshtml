@@ -1,0 +1,38 @@
+﻿@using JohannMovies.ViewModel
+@model IndexCustomersViewModel
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+@if (Model.Customers.Count == 0)
+{
+    <div class="alert alert-info">
+        We currently do not have any customer.
+    </div>
+}
+else
+{
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Movie</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>@customer.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
