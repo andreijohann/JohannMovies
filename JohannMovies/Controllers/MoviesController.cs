@@ -46,6 +46,12 @@ namespace JohannMovies.Controllers
             return Content("PageIndex=" + PageIndex + "&SortBy=" + SortBy);
         }
 
+        /*
+        Good docs about attribute routing: https://blogs.msdn.microsoft.com/webdev/2013/10/17/attribute-routing-in-asp-net-mvc-5/ 
+        */
+
+        //[Route("movies/released/{year}/{month}")]
+        [Route("movies/released/{year:regex(\\d{4})}/{month:regex(\\d{1,2}):range(1,12)}")]
         public ActionResult ByReleaseDate(int? year, int? month)
         {
             return Content(String.Format("{0}/{1}", year, month));
