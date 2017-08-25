@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using JohannMovies.Models;
+using JohannMovies.ViewModel;
 
 namespace JohannMovies.Controllers
 {
@@ -12,11 +13,23 @@ namespace JohannMovies.Controllers
         // GET: Movies/Random
         public ActionResult Random()
         {
-            var Movie = new Movie(){
+            var movie = new Movie(){
                 Name = "Shrek!"
             };
 
-            //return View(Movie);
+            var customers = new List<Customer>
+            {
+                new Customer { Name = "Customer 1" },
+                new Customer { Name = "Customer 2" },
+            };
+
+            var viewModel = new RandomMovieViewModel
+            {
+                Customers = customers,
+                Movie = movie
+            };
+
+            return View(viewModel);
 
             /* Playing with Action Results */
             //return Content("Random Method!");
@@ -26,7 +39,7 @@ namespace JohannMovies.Controllers
             //return Redirect(@"~\Util\WebFormTest.aspx");
             //return PartialView(@"~\Views\Movies\Random.cshtml", Movie);
             //return File(new System.IO.StreamReader(Server.MapPath("~/Util/Download.docx")).BaseStream, "application/ms-word", "DwnFile.docx");
-            return RedirectToAction("Index", "Home", new { pageIndex = 1, SortBy = "Name" });
+            //return RedirectToAction("Index", "Home", new { pageIndex = 1, SortBy = "Name" });
         }
 
         //GET: Movies/Edit/1 
