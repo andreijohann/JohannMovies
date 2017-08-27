@@ -9,6 +9,13 @@ namespace JohannMovies.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool isSubscribedToNewsletter { get; set; }
+
+        //NavigationProperty
+        public MembershipType MembershipType { get; set; }  
+        public byte MembershipTypeId { get; set; }
+
+
 
         public static List<Customer> GetAllCustomers()
         {
