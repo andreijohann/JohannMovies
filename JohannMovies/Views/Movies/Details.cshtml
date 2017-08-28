@@ -9,7 +9,7 @@
 
 <ul>
     <li>Genre: @Model.Movie.Genre.Name</li>
-    <li>Release Date: @Model.Movie.ReleasdDate.ToString("dd/MM/yyyy")</li>
-    <li>Date Added: @Model.Movie.DateAdded.ToString("dd/MM/yyyy")</li>
+    <li>Release Date: @Model.Movie.ReleaseDate.Value.ToString("dd/MM/yyyy")</li>
+    <li>Date Added: @Model.Movie.DateAdded.Value.ToString("dd/MM/yyyy")</li>
     <li>Number in Stock: @Model.Movie.NumberInStock</li>
 </ul>

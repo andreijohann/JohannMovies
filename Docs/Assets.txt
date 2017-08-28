@@ -5,3 +5,5 @@ https://github.com/andreijohann/JohannMovies
 Bootstrap Themes:
 https://bootswatch.com/
 
+Bootstrap CSS Examples:
+https://getbootstrap.com/docs/3.3/css/

@@ -97,12 +97,71 @@ namespace JohannMovies.Controllers
             //return RedirectToAction("Index", "Home", new { pageIndex = 1, SortBy = "Name" });
         }
 
-        //GET: Movies/Edit/1 
-        public ActionResult Edit(int id) {
 
-            return Content("id=" + id);
+
+        //GET: Movies/New 
+        public ActionResult New()
+        {
+
+            var modelView = new MovieFormViewModel()
+            {
+                Genres = _context.Genres.ToList(),
+                Movie = new Movie()
+            };
+
+            return View("MovieForm", modelView);
+        }
+
+
+        //GET: Movies/Edit/1 
+        public ActionResult Edit(int Id)
+        {
+
+
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == Id);
+
+            if (movie == null)
+                return HttpNotFound();
+
+
+            var modelView = new MovieFormViewModel()
+            {
+                Genres = _context.Genres.ToList(),
+                Movie = movie
+            };
+
+            return View("MovieForm", modelView);
+        }
+
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+
+            if (movie.Id == 0) {
+
+                movie.DateAdded = DateTime.Now;
+                _context.Movies.Add(movie);
+
+            } else {
+
+                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
+
+                //TODO: Replace this block with AutoMapper api
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.NumberInStock = movie.NumberInStock;
+                movieInDb.GenreId = movie.GenreId;
+
+            }
+
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index", "Movies");
 
         }
+
 
 
 
