@@ -135,8 +135,21 @@ namespace JohannMovies.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+
+            if (!ModelState.IsValid) {
+
+                var modelView = new MovieFormViewModel()
+                {
+                    Genres = _context.Genres.ToList(),
+                    Movie = movie
+                };
+
+                return View("MovieForm", modelView);
+
+            }
 
             if (movie.Id == 0) {
 
