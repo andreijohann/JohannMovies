@@ -11,6 +11,19 @@ namespace JohannMovies.Controllers
     public class CustomersController : Controller
     {
 
+        private ApplicationDbContext _context;
+
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+            base.Dispose(disposing);
+        }
+
         // GET: Customers
         // GET: Customers/Index/{PageIndex}/{SortBy}
         public ActionResult Index(int? PageIndex, string SortBy)
@@ -21,7 +34,7 @@ namespace JohannMovies.Controllers
             if (String.IsNullOrWhiteSpace(SortBy))
                 SortBy = "Name";
 
-            var customers = Customer.GetAllCustomers();
+            var customers = _context.Customers.ToList<Customer>();
 
             var modelView = new IndexCustomersViewModel
             {
@@ -36,7 +49,7 @@ namespace JohannMovies.Controllers
         public ActionResult Details(int Id)
         {
 
-            var objCustomer = Customer.GetAllCustomers().Where(m => m.Id == Id).SingleOrDefault();
+            var objCustomer = _context.Customers.SingleOrDefault(c => c.Id == Id);
             if (objCustomer == null) {
                 return HttpNotFound();
             }
