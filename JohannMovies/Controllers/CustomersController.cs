@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,7 +35,7 @@ namespace JohannMovies.Controllers
             if (String.IsNullOrWhiteSpace(SortBy))
                 SortBy = "Name";
 
-            var customers = _context.Customers.ToList<Customer>();
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList<Customer>();
 
             var modelView = new IndexCustomersViewModel
             {
