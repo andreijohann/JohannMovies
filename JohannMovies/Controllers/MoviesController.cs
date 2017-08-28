@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 using System.Web.Mvc;
 using JohannMovies.Models;
 using JohannMovies.ViewModel;
@@ -10,6 +11,19 @@ namespace JohannMovies.Controllers
 {
     public class MoviesController : Controller
     {
+
+        private ApplicationDbContext _context;
+
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+            base.Dispose(disposing);
+        }
 
         // GET: Movies
         // GET: Movies/Index/{PageIndex}/{SortBy}
@@ -21,7 +35,7 @@ namespace JohannMovies.Controllers
             if (String.IsNullOrWhiteSpace(SortBy))
                 SortBy = "Name";
 
-            var movies = Movie.GetAllMovies();
+            var movies = _context.Movies.Include(mbox => mbox.Genre).ToList<Movie>();
 
             var modelView = new IndexMoviesViewModel
             {
@@ -35,7 +49,7 @@ namespace JohannMovies.Controllers
         public ActionResult Details(int Id)
         {
 
-           var objMovie = Movie.GetAllMovies().Where(m => m.Id == Id).SingleOrDefault();
+           var objMovie = _context.Movies.Include(mbox => mbox.Genre).SingleOrDefault(m => m.Id == Id);
 
             if (objMovie == null)
             {
