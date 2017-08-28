@@ -7,3 +7,12 @@
 
 <h2>@Model.Customer.Name</h2>
 
+<ul>
+    <li>MembershipType: @Model.Customer.MembershipType.Name</li>
+    @if (Model.Customer.Birthdate.HasValue)
+    {
+        <li>Birthdate: @Model.Customer.Birthdate.Value.ToString("dd/MM/yyyy")</li>
+    }
+
+</ul>
+

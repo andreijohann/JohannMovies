@@ -50,7 +50,7 @@ namespace JohannMovies.Controllers
         public ActionResult Details(int Id)
         {
 
-            var objCustomer = _context.Customers.SingleOrDefault(c => c.Id == Id);
+            var objCustomer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == Id);
             if (objCustomer == null) {
                 return HttpNotFound();
             }
