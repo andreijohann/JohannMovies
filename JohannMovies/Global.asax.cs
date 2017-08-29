@@ -6,6 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AutoMapper;
+using JohannMovies.App_Start;
+
 
 namespace JohannMovies
 {
@@ -13,13 +16,19 @@ namespace JohannMovies
     {
         protected void Application_Start()
         {
+            //Configura AutoMapper
+            Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+
+            //Configura Web-Api
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            
         }
     }
 }
