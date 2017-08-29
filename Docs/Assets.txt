@@ -10,3 +10,6 @@ https://getbootstrap.com/docs/3.3/css/
 
 jQuery Tutorial:
 http://www.impressivewebs.com/jquery-tutorial-for-beginners/
+
+Bootbox (bootstrap modals):
+http://bootboxjs.com/
