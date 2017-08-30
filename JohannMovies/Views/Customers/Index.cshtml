@@ -45,7 +45,10 @@ else
 {
     
 <script>
- $(document).ready(function (){
+    $(document).ready(function () {
+
+        $("#customersTbl").DataTable();
+
      $("#customersTbl").on("click",".js-delete", function () {
          var button = $(this);
          bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
