@@ -1,5 +1,4 @@
 ﻿@using JohannMovies.ViewModel
-@model IndexCustomersViewModel
 @{
     ViewBag.Title = "Customers";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,38 +6,18 @@
 
 <h2>Customers</h2>
 
-@if (Model.Customers.Count == 0)
-{
-    <div class="alert alert-info">
-        We currently do not have any customer.
-    </div>
-}
-else
-{
-    @Html.ActionLink("New Customer", "New", "Customers", new { @class = "btn btn-primary" });
-    <br /><br />
-    <table id="customersTbl" class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Customer</th>
-                <th>Membership Type</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (var customer in Model.Customers)
-            {
-                <tr>
-                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
-                    <td>@customer.MembershipType.Name</td>
-                    <td><button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-}
+@Html.ActionLink("New Customer", "New", "Customers", new { @class = "btn btn-primary" });
+<br /><br />
+<table id="customersTbl" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Membership Type</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
 
 @section scripts
@@ -47,7 +26,30 @@ else
 <script>
     $(document).ready(function () {
 
-        $("#customersTbl").DataTable();
+        $("#customersTbl").DataTable({
+            ajax: {
+                url: "/api/customers",
+                dataSrc: ""
+            },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, customer) {
+                            return "<a href='/customer/edit/" + customer.id + "' >" + customer.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-customer-id='" + data + "' >Delete</button>";
+                        }
+                    }
+                ]
+
+        });
 
      $("#customersTbl").on("click",".js-delete", function () {
          var button = $(this);

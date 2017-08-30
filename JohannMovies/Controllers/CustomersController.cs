@@ -35,14 +35,7 @@ namespace JohannMovies.Controllers
             if (String.IsNullOrWhiteSpace(SortBy))
                 SortBy = "Name";
 
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList<Customer>();
-
-            var modelView = new IndexCustomersViewModel
-            {
-                Customers = customers
-            };
-
-            return View(modelView);
+            return View();
         }
 
 
