@@ -13,3 +13,6 @@ http://www.impressivewebs.com/jquery-tutorial-for-beginners/
 
 Bootbox (bootstrap modals):
 http://bootboxjs.com/
+
+Datatables (js):
+http://datatables.net/

@@ -7,6 +7,7 @@ using System.Web.Http;
 using JohannMovies.Models;
 using JohannMovies.Dtos;
 using AutoMapper;
+using System.Data.Entity;
 
 namespace JohannMovies.Controllers.Api
 {
@@ -29,10 +30,13 @@ namespace JohannMovies.Controllers.Api
         //GET /api/customers
         public IHttpActionResult GetCustomers() {
 
-            return Ok(_context.Customers.ToArray().Select(Mapper.Map<Customer, CustomerDto>));
+            return Ok(_context.Customers
+                .Include(c => c.MembershipType)
+                .ToArray()
+                .Select(Mapper.Map<Customer, CustomerDto>));
 
         }
-
+    
         //GET /api/customers/1
         public IHttpActionResult GetCustomer(int Id) {
 
